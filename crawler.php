@@ -4,10 +4,12 @@ ini_set('display_errors', 1);
 
 require 'simple_html_dom.php';
 
+require 'src/phpQuery-onefile.php';
+
 
 //$reg_nos = array("E0801521J","E0801865A","E0801230J","E0800429D","E0800753F");
 
-$reg_nos = array("E0801521J");
+$reg_nos = array("E0801150I");
 
 
 foreach($reg_nos as $reg){
@@ -50,24 +52,73 @@ foreach($reg_nos as $reg){
 
     $dom = new DOMDocument();
     @$dom->loadHTML($result);
- 
+   
 
-
+     
 //$elements = $xpath->query("/html/body/div[@id='yourTagIdHere']");
     //$elements = $xpath->query("//*[@id]");
     //$elements = $xpath->query("*/div[@id='yourTagIdHere']");
 
+    // jQuery('.no-border.table-title').each(function(){
 
+    //   console.log(jQuery(this).html());
+
+    // });
 
     $csv_str = "";
     $csv_vals = "";
 
 
+$file = fopen("content.csv","w");
 
-    // $html = new simple_html_dom();
-    // $html->load($result);
-    // $items = $html->find('#profDetails');
+    $html = new simple_html_dom();
+    $html->load($result);
 
+    $arr = array();
+
+    $items = $html->find('td[class=no-border table-title]');
+
+    foreach ($items as $key => $value) {
+        $val = trim($value->innertext);
+        $val = str_replace("&nbsp;", " ", $val);
+        $val = preg_replace('/\\s+/', ' ',$val);
+
+        fwrite($file,"$val\t");
+    }
+
+    fwrite($file,"\r");
+
+    $items = $html->find('td[class=no-border table-data]');
+
+    foreach ($items as $key => $value) {
+        $val = trim($value->innertext);
+        $val = str_replace("&nbsp;", " ", $val);
+        $val = preg_replace('/\\s+/', ' ',$val);
+
+
+        $maps = new simple_html_dom();
+        $maps->load($value);
+        $map = $maps->find('a[onclick]');
+
+        if(count($map) > 0){
+            foreach ($map as $k => $v){
+                $val = trim($v->attr['onclick']);
+                $val = preg_replace('/openGoogleMap\\(\'/', ' ',$val);
+                $val = preg_replace('/\\); return false[;]*/', ' ',$val); 
+                $val = trim($val);
+                $val = trim($val,"'");
+                fwrite($file,"$val\t");
+            }
+        }else{
+
+            fwrite($file,"$val\t");
+        }
+        $maps=null;
+        
+        
+
+        
+    }
 
     // foreach($items as $post) {
 
@@ -79,7 +130,7 @@ foreach($reg_nos as $reg){
     // }
 
 
-    $file = fopen("content.csv","w");
+    
     
 
     foreach($dom->getElementsByTagName('table') as $table) {
@@ -91,6 +142,15 @@ foreach($reg_nos as $reg){
             $first_col = true;
             foreach($tr->getElementsByTagName('td') as $td) {
 
+
+                foreach($td->getElementsByTagName('div') as $div) {
+                    $val = trim($div->nodeValue);
+                     
+                }
+
+
+
+
                 if($first_row){
                     $first_row =false;
                     continue;
@@ -100,9 +160,11 @@ foreach($reg_nos as $reg){
                     $val = trim($td->nodeValue);
                     $csv_str.= "\"$val\",";
                     $first_col = false; 
-                    echo "\"$val\",";
-                    echo "<br/>";
-                    //fwrite($file,"Hello World. Testing!");
+
+
+                    //echo "\"$val\",";
+                    //echo "<br/>";
+                    //fwrite($file,"\"$val\"\r");
 
                 }else{
 
@@ -125,3 +187,13 @@ foreach($reg_nos as $reg){
 
 
  
+
+class foo
+{
+
+    function do_foo()
+    {
+        echo "Doing foo."; 
+    }
+}
+

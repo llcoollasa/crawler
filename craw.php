@@ -69,7 +69,7 @@ foreach($reg_nos as $reg){
     $csv_vals = "";
 
 
-$file = fopen("content.csv","w");
+    $file = fopen("content.csv","w");
 
     $html = new simple_html_dom();
     $html->load($result);

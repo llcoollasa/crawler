@@ -1,4 +1,4 @@
-<?php
+<?php 
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -50,9 +50,7 @@ foreach($reg_nos as $reg){
 
     $dom = new DOMDocument();
     @$dom->loadHTML($result);
-
-
-
+ 
 
 
 //$elements = $xpath->query("/html/body/div[@id='yourTagIdHere']");
@@ -66,23 +64,26 @@ foreach($reg_nos as $reg){
 
 
 
-    $html = new simple_html_dom();
-    $html->load($result);
-    $items = $html->find('#profDetails');
+    // $html = new simple_html_dom();
+    // $html->load($result);
+    // $items = $html->find('#profDetails');
 
 
-    foreach($items as $post) {
+    // foreach($items as $post) {
 
-        var_dump($post->children(0)->outertext);
-        # remember comments count as nodes
-        //$articles[] = array($post->children(3)->outertext, $post->children(6)->first_child()->outertext);
+    //     var_dump($post->children(0)->outertext);
+    //     # remember comments count as nodes
+    //     //$articles[] = array($post->children(3)->outertext, $post->children(6)->first_child()->outertext);
 
 
-    }
+    // }
 
+
+    $file = fopen("content.csv","w");
+    
 
     foreach($dom->getElementsByTagName('table') as $table) {
-        # Show the <a href>
+        
 
         foreach($table->getElementsByTagName('tr') as $tr) {
 
@@ -95,10 +96,13 @@ foreach($reg_nos as $reg){
                     continue;
                 }
                 if($first_col){
-
+ 
                     $val = trim($td->nodeValue);
                     $csv_str.= "\"$val\",";
-                    $first_col = false;
+                    $first_col = false; 
+                    echo "\"$val\",";
+                    echo "<br/>";
+                    //fwrite($file,"Hello World. Testing!");
 
                 }else{
 
@@ -112,12 +116,12 @@ foreach($reg_nos as $reg){
         }
 
     }
+
+    fclose($file);
     //echo trim($csv_str,",");
     //echo "<br/>";
     //echo trim($csv_vals,",");
 }
 
 
-
-
- ?>
+ 

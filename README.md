@@ -15,6 +15,5 @@
 <p>You can simple run this in terminal as well <code>php crawler.php</code></p>
 
 <h2>SAMPLE</h2>
-
-You can find the final CSV file <b><a href="https://github.com/llcoollasa/crawler/blob/master/content.csv" target="_blank" >content.csv</a></b> from the source.
-
+<p>LIVE Sample http://landrithsoft.com/svc/crawler/crawler.php</p>
+<p>You can find the final CSV file <b><a href="https://github.com/llcoollasa/crawler/blob/master/content.csv" target="_blank" >content.csv</a></b> from the source.</p>

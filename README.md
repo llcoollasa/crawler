@@ -16,5 +16,5 @@
 
 <h2>SAMPLE</h2>
 
-You can find the final CSV file <b><a href="https://github.com/llcoollasa/crawler/content.csv">content.csv</a></b> from the source.
+You can find the final CSV file <b><a href="https://github.com/llcoollasa/crawler/blob/master/content.csv" target="_blank" >content.csv</a></b> from the source.
 

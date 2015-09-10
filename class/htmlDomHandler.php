@@ -1,13 +1,38 @@
 <?php
+/*
+ * @author lasantha Indrajith<hellolasantha@gmail.com>
+ * @purpose testing and education purpose only
+ * @Description html DOM manipulation class
+ *
+ */
 require_once 'simple_html_dom.php';
 require_once 'request.php';
 
 class HtmlDomHandler{
 
-    public function getIds($url,$page=1){
+    private $url;
+    private $ids;
 
+    public function __construct($url){
+        $this->url= $url;
+    }
+
+    public function getSelectedIds($pages){
+
+        $this->ids = array();
+
+        for($i=1; $i <= $pages; $i++){
+            $ids =  $this->getIds($i);
+            $this->ids = array_merge($this->ids,$ids);
+        }
+        return $this->ids;
+    }
+
+    public function getIds($page){
+
+        $id_params=null;
         $id_params = array('hpe'=>'OOB');
-        $req = new Request($url,$id_params,$page);
+        $req = new Request($this->url,$id_params,$page);
         $result = $req->call();
 
         $ids = array();

@@ -1,4 +1,10 @@
 <?php
+/*
+ * @author lasantha Indrajith<hellolasantha@gmail.com>
+ * @purpose testing and education purpose only
+ * @Description CURL request class
+ *
+ */
 class Request{
 
     private $url;
@@ -13,6 +19,7 @@ class Request{
     public function __construct($url,$params,$page_number='') {
 
         $this->url = $url;
+        $this->fields = null;
         $this->fields = $params;
         foreach($this->fields as $key=>$value) { $this->fields_string .= $key.'='.$value.'&'; }
         $this->fields_string = rtrim($this->fields_string, '&');
@@ -22,6 +29,7 @@ class Request{
     public function call(){
 
         //init
+        $this->ch =null;
         $this->ch = curl_init($this->url);
 
         //set the url, number of POST vars, POST data

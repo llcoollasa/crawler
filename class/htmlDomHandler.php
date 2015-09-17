@@ -21,7 +21,7 @@ class HtmlDomHandler{
 
         $this->ids = array();
 
-        for($i=1; $i <= $pages; $i++){
+        for($i=51; $i <= $pages; $i++){
             $ids =  $this->getIds($i);
             $this->ids = array_merge($this->ids,$ids);
         }

@@ -17,15 +17,18 @@ $id_url ="https://prs.moh.gov.sg/prs/internet/profSearch/getSearchSummaryByName.
 $detail_url = 'https://prs.moh.gov.sg/prs/internet/profSearch/getSearchDetails.action';
 
 $dom = new HtmlDomHandler($id_url);
-$numbers = $dom->getSelectedIds(2);
+$numbers = $dom->getSelectedIds(100);
 
 //CSV file called content.csv will create
 $csv = new CSVFile();
-
+$tot = count($numbers);
+$curr = 1;
 foreach($numbers as $num) {
 
     $content = $dom->getDetails($detail_url, $num);
     $csv->passData($content);
+    fwrite(STDOUT, "$num\t\t$curr of $tot\n");
+    $curr ++;
 }
 
 $csv->exportCsv();

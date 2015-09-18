@@ -17,11 +17,11 @@ class HtmlDomHandler{
         $this->url= $url;
     }
 
-    public function getSelectedIds($pages){
+    public function getSelectedIds($pages,$from=0){
 
         $this->ids = array();
 
-        for($i=51; $i <= $pages; $i++){
+        for($i=$from; $i <= $pages; $i++){
             $ids =  $this->getIds($i);
             $this->ids = array_merge($this->ids,$ids);
         }

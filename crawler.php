@@ -17,7 +17,7 @@ $id_url ="https://prs.moh.gov.sg/prs/internet/profSearch/getSearchSummaryByName.
 $detail_url = 'https://prs.moh.gov.sg/prs/internet/profSearch/getSearchDetails.action';
 
 $dom = new HtmlDomHandler($id_url);
-$numbers = $dom->getSelectedIds(100);
+$numbers = $dom->getSelectedIds(300,201);
 
 //CSV file called content.csv will create
 $csv = new CSVFile();

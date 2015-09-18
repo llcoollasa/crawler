@@ -17,3 +17,9 @@
 <h2>SAMPLE</h2>
 <p>LIVE Sample http://landrithsoft.com/svc/crawler/crawler.php</p>
 <p>You can find the final CSV file <b><a href="https://github.com/llcoollasa/crawler/blob/master/content.csv" target="_blank" >content.csv</a></b> from the source.</p>
+
+<h3>Other Sample Files</h3>
+<p>
+<b><a href="https://github.com/llcoollasa/crawler/blob/master/content_1_50.csv" target="_blank" >content_1_50.csv</a></b></br>
+<b><a href="https://github.com/llcoollasa/crawler/blob/master/content_51_100.csv" target="_blank" >content_51_100.csv</a></b></br>
+</p>

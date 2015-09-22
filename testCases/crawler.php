@@ -6,6 +6,11 @@
  *
  */
 
+$variable = substr("ADAM MALIK BIN KAMALDEEN (E0801521J)", 0, strpos("ADAM MALIK BIN KAMALDEEN (E0801521J)", "("));
+echo $variable; //("ADAM MALIK BIN KAMALDEEN (E0801521J)","By");
+
+
+die();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 

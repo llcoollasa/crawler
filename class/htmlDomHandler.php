@@ -50,6 +50,18 @@ class HtmlDomHandler{
             $maps->load($value);
             $map = $maps->find('a[onclick]');
 
+            $name = $maps->find('td[class=no-border font15px]');
+
+            $i=0;
+            foreach ($name as $k => $v) {
+
+                $v = $v->innertext;
+                $variable = trim(substr($v, 0, strpos($v, "(")));
+                $ids[$i] = array("name"=>$variable);
+                $i++;
+            }
+
+            $i=0;
             foreach ($map as $k => $v){
 
                 $val = trim($v->attr['onclick']);
@@ -59,7 +71,11 @@ class HtmlDomHandler{
                 $val = trim($val,"'");
 
                 if(preg_match('/^[A-Z0-9]+$/',$val)){
-                    array_push($ids,$val);
+                    //array_push($ids,$val);
+                    //array_push($ids,array("reg"=>$val));
+                    //$ids[$val] = $variable;
+                    $ids[$i] = array("reg"=>$variable);
+                    $i++;
                 }
             }
             $maps=null;
@@ -92,6 +108,11 @@ class HtmlDomHandler{
         $html = new simple_html_dom();
         $html->load($result);
 
+        $name = $html->find('div[class=table-head]');
+
+        var_dump($name);
+        die();
+
         //headers
         $items = $html->find('td[class=no-border table-title]');
 
@@ -99,6 +120,7 @@ class HtmlDomHandler{
 
         foreach ($items as $key => $value) {
             $val = trim($value->innertext);
+
             $val = str_replace("&nbsp;", " ", $val);
             $val = preg_replace('/\\s+/', ' ',$val);
             $content["header"][$count]=$val;
@@ -111,6 +133,7 @@ class HtmlDomHandler{
         $count =0;
         foreach ($items as $key => $value) {
             $val = trim($value->innertext);
+
             $val = str_replace("&nbsp;", " ", $val);
             $val = preg_replace('/\\s+/', ' ',$val);
 

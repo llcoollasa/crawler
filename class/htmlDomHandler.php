@@ -57,7 +57,7 @@ class HtmlDomHandler{
 
                 $v = $v->innertext;
                 $variable = trim(substr($v, 0, strpos($v, "(")));
-                $ids[$i] = array("name"=>$variable);
+                $ids[$i]['name'] = $variable ;
                 $i++;
             }
 
@@ -74,7 +74,7 @@ class HtmlDomHandler{
                     //array_push($ids,$val);
                     //array_push($ids,array("reg"=>$val));
                     //$ids[$val] = $variable;
-                    $ids[$i] = array("reg"=>$variable);
+                    $ids[$i]["reg"] = $val;
                     $i++;
                 }
             }
@@ -87,7 +87,7 @@ class HtmlDomHandler{
         return $ids;
     }
 
-    public function getDetails($url,$reg){
+    public function getDetails($url,$reg,$opt_name=""){
 
         $content = array();
         $fields = array(
@@ -110,13 +110,16 @@ class HtmlDomHandler{
 
         $name = $html->find('div[class=table-head]');
 
-        var_dump($name);
-        die();
-
         //headers
         $items = $html->find('td[class=no-border table-title]');
 
         $count =0;
+
+        //adding name
+        $content["header"][$count]= "name";
+        $content["data"][$count]= $opt_name;
+        
+        $count = 1;
 
         foreach ($items as $key => $value) {
             $val = trim($value->innertext);
@@ -130,7 +133,7 @@ class HtmlDomHandler{
         //data
         $items = $html->find('td[class=no-border table-data]');
 
-        $count =0;
+        $count = 1;
         foreach ($items as $key => $value) {
             $val = trim($value->innertext);
 

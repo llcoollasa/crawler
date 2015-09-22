@@ -18,16 +18,16 @@ $detail_url = 'https://prs.moh.gov.sg/prs/internet/profSearch/getSearchDetails.a
 
 $dom = new HtmlDomHandler($id_url);
 $numbers = $dom->getSelectedIds(1);
-var_dump($numbers);die();
+
 //CSV file called content.csv will create
 $csv = new CSVFile();
 $tot = count($numbers);
 $curr = 1;
-foreach($numbers as $num) {
+foreach($numbers as $id=>$key) {
 
-    $content = $dom->getDetails($detail_url, $num);
+    $content = $dom->getDetails($detail_url, $key['reg'],$key['name']);
     $csv->passData($content);
-    fwrite(STDOUT, "$num\t\t$curr of $tot\n");
+    fwrite(STDOUT, $key['reg']."\t\t$curr of $tot\n");
     $curr ++;
 }
 
